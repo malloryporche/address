@@ -19,15 +19,3 @@ class Address
     address
   end
 end
-
-
-home = Address.new
-home.kind = "Home"
-home.street_1 = "25 Beachyhead Way"
-home.city = "CapeTown"
-home.state = "SA"
-home.postal_code = "90008"
-
-puts home.to_s('short')
-puts "\n"
-puts home.to_s('long')
