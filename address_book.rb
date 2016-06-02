@@ -32,7 +32,7 @@ class AddressBook
 		results = []
 		search = number.gsub("-", "")
 		contacts.each do |contact|
-			contact.phone_number.each do |phone_number|
+			contact.phone_numbers.each do |phone_number|
 			if phone_number.number.gsub('-','').include?(search)
 				results.push(contact)
 			end
@@ -51,7 +51,7 @@ class AddressBook
 				end
 			end
 		end
-		print_results('Address search results (#{search}', results)
+		print_results('Address search results #{search}', results)
 	end
 
 	def print_contact_list
@@ -84,6 +84,6 @@ nick.add_address("Home", "222 Two Lane", "", "Portland", "OR", "12345")
 address_book.contacts.push(mallory)
 address_book.contacts.push(nick)
 
-#address_book.find_by_name("m")
-#address_book.find_by_phone_number("222")
+address_book.find_by_name("m")
+address_book.find_by_phone_number("222")
 address_book.find_by_address("123 Main")
