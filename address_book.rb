@@ -7,6 +7,16 @@ class AddressBook
 		@contacts = []
 	end
 
+	def print_results(search, results)
+		puts search
+		results.each do |contact|
+			puts contact.to_s('full_name')
+			contact.print_phone_number
+			contact.print_addresses
+			puts "\n"
+			end
+		end
+
 	def find_by_name(name)
 		results = []
 		search = name.downcase
@@ -15,13 +25,33 @@ class AddressBook
 			results.push(contact)
 		 end
 		end
-	 puts "Name search results (#{search})"
-		results.each do |contact|
-			puts contact.to_s('full_name')
-			contact.print_phone_number
-			contact.print_addresses
-			puts "\n"
+		print_results("Name search results (#{search}", results)
+	end
+
+	def find_by_phone_number(number)
+		results = []
+		search = number.gsub("-", "")
+		contacts.each do |contact|
+			contact.phone_number.each do |phone_number|
+			if phone_number.number.gsub('-','').include?(search)
+				results.push(contact)
+			end
 		end
+	end
+		print_results('Number search results (#{search}', results)
+	end
+
+	def find_by_address(query)
+		results = []
+		search = query.downcase
+		contacts.each do |contact|
+			contact.addresses.each do |address|
+				if address.to_s('long').downcase.include?(search)
+					results.push(contact) unless results.include?(contact)
+				end
+			end
+		end
+		print_results('Address search results (#{search}', results)
 	end
 
 	def print_contact_list
@@ -31,6 +61,8 @@ class AddressBook
 		end
 	end
 end
+
+
 
 
 
@@ -52,6 +84,6 @@ nick.add_address("Home", "222 Two Lane", "", "Portland", "OR", "12345")
 address_book.contacts.push(mallory)
 address_book.contacts.push(nick)
 
-#address_book.print_contact_list
-
-address_book.find_by_name("mal")
+#address_book.find_by_name("m")
+#address_book.find_by_phone_number("222")
+address_book.find_by_address("123 Main")
